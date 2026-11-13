@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="rtcod_donate"
+version="1.0.0"
+displayName="RtCoD Donate & Cases"
+displayTest="IGNORE_SERVER_VERSION"
+description='''
+Server-side donation, kits and animated cases system with Dying Realm integration.
+'''
+
+[[dependencies.rtcod_donate]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.rtcod_donate]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"

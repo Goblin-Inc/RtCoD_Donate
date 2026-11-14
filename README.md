@@ -1,8 +1,10 @@
 <div align="center">
 
+🌐 **Language:** **English** | [Русский (README_Ru.md)](README_Ru.md)
+
 # 💎 RtCoD Donate (`rtcod_donate`)
 
-**Полностью серверный мод (Server-Side Only) на интерактивное донат-меню, систему привилегий, наборы `/kits` с кулдаунами и анимированную рулетку кейсов для Minecraft Forge 1.20.1**
+**100% Server-Side Only Minecraft Forge 1.20.1 mod providing an interactive donate shop GUI, privilege tiers, `/kits` with cooldowns, and an animated case roulette**
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)](https://files.minecraftforge.net/)
 [![Forge](https://img.shields.io/badge/Forge-47.4.13-DFA86A?style=for-the-badge)](https://files.minecraftforge.net/)
@@ -17,87 +19,87 @@
 
 ---
 
-## 📖 О проекте
+## 📖 Overview
 
-**RtCoD Donate** — специализированный серверный мод для проекта **RtCoD (Return to Chronicles of Darkness)** на **Minecraft Forge 1.20.1**, реализующий полноценный внутриигровой магазин привилегий, меню наборов (`/kits`) и анимированные кейсы с рулеткой **без необходимости установки мода на клиент игрока** (`displayTest = "IGNORESERVERONLY"`).
+**RtCoD Donate** is a dedicated server-side mod built for the **RtCoD (Return to Chronicles of Darkness)** project on **Minecraft Forge 1.20.1**. It delivers a complete in-game privilege store, `/kits` menu, and animated roulette cases **without requiring players to install the mod on their client** (`displayTest = "IGNORESERVERONLY"`).
 
-Все интерфейсы строятся на базе защищённого серверного контейнера `LockedChestMenu` (54 слота, `GENERIC_9x6`), который перехватывает любые клики (`ClickType.PICKUP`, `QUICK_MOVE`, `SWAP`, `THROW`), полностью исключая дюп или кражу декоративных предметов из витрины.
+All interfaces are powered by a hardened server-side `LockedChestMenu` container (54 slots, `GENERIC_9x6`) that intercepts every inventory interaction (`ClickType.PICKUP`, `QUICK_MOVE`, `SWAP`, `THROW`), completely preventing item duplication or theft of showcase items.
 
-### ✨ Ключевые возможности
-- **100% Server-Side Only**: работает с чистыми Forge-клиентами без скачивания дополнительных модов.
-- **Анимированная CS:GO / RPG рулетка кейсов (`SpinSession`)**:
-  - Плавная прокрутка ленты наград в реальном времени с постепенным замедлением (`tickInterval` от `1` до `10` тиков на протяжении 42 шагов).
-  - Звуковое сопровождение каждого шага (`UI_BUTTON_CLICK`), финальный аккорд (`PLAYER_LEVELUP` / `UI_TOAST_CHALLENGE_COMPLETE`) и широковещательный анонс в чат при выпадении редких реликвий (`Mythic` / `Void`).
-  - Защита от закрытия окна во время вращения: если игрок закроет инвентарь до окончания прокрутки, выигрыш всё равно гарантированно начислится.
-- **Глубокая интеграция с модом `Dying-Realm` (`dying_realm:*`)**: автоматическая выдача кастомных посохов, печатей Бездны, кристаллов душ и реликвий с fallback-вариантами на ванильные предметы.
-- **Поддержка RCON и авто-доната**: команды `/donadmin setrank` и `/donadmin givekey` работают напрямую из консоли сервера или веб-магазина (EasyDonate / TradeMC / Tydex).
+### ✨ Key Features
+- **100% Server-Side Only**: works seamlessly with unmodified Forge clients.
+- **Animated CS:GO / RPG Case Roulette (`SpinSession`)**:
+  - Smooth real-time reward reel animation with progressive deceleration (`tickInterval` scaling from `1` to `10` ticks across 42 steps).
+  - Per-step sound effects (`UI_BUTTON_CLICK`), victory fanfare (`PLAYER_LEVELUP` / `UI_TOAST_CHALLENGE_COMPLETE`), and server-wide chat broadcasts when rolling rare relics (`Mythic` / `Void`).
+  - Anti-loss protection: if a player closes the inventory mid-spin, the winning reward is still guaranteed to be granted.
+- **Deep Integration with `Dying-Realm` (`dying_realm:*`)**: automatically distributes custom staves, Void seals, soul crystals, and relics with graceful fallback to vanilla items if `Dying-Realm` is absent.
+- **RCON & Automated Webstore Support**: `/donadmin setrank` and `/donadmin givekey` work directly from the server console or automated webshops (EasyDonate / TradeMC / Tebex / Tydex).
 
 ---
 
-## 👑 Привилегии и Наборы (`/kits`)
+## 👑 Ranks & Kits (`/kits`)
 
-| Набор (`ID`) | Требуемый ранг | ⏳ Кулдаун | 🎁 Содержимое набора |
+| Kit (`ID`) | Required Rank | ⏳ Cooldown | 🎁 Kit Contents |
 |:---|:---:|:---:|:---|
-| **Стартовый** (`start`) | `Игрок` (`default`) | `24 часа` | Железный меч, Железная кирка, Кожаная куртка, 16× Жареная говядина, 8× Факел, 2× Золотое яблоко |
-| **VIP Набор** (`vip`) | `VIP` (`vip`) | `24 часа` | Алмазный меч (Острота II), Алмазный нагрудник (Защита II), 4× Золотое яблоко, 8× Жемчуг Эндера, 16× Бутылочка опыта |
-| **Premium Набор** (`premium`) | `PREMIUM` (`premium`) | `24 часа` | Незеритовый меч (Острота III), Незеритовый нагрудник (Защита III), Зачарованное золотое яблоко, Тотем бессмертия, 2× Незеритовый слиток, `dying_realm:soul_crystal` ×4 |
-| **Lord Набор** (`lord`) | `LORD` (`lord`) | `24 часа` | Незеритовый меч Лорда (Острота V, Заговор огня II), Полный сет Незеритовой брони (Защита IV), 3× Зачарованное золотое яблоко, 2× Тотем бессмертия, Звезда Незера, `dying_realm:void_relic` ×2 |
+| **Starter** (`start`) | `Player` (`default`) | `24 hours` | Iron Sword, Iron Pickaxe, Leather Tunic, 16× Cooked Beef, 8× Torch, 2× Golden Apple |
+| **VIP Kit** (`vip`) | `VIP` (`vip`) | `24 hours` | Diamond Sword (Sharpness II), Diamond Chestplate (Protection II), 4× Golden Apple, 8× Ender Pearl, 16× Bottle o' Enchanting |
+| **Premium Kit** (`premium`) | `PREMIUM` (`premium`) | `24 hours` | Netherite Sword (Sharpness III), Netherite Chestplate (Protection III), Enchanted Golden Apple, Totem of Undying, 2× Netherite Ingot, `dying_realm:soul_crystal` ×4 |
+| **Lord Kit** (`lord`) | `LORD` (`lord`) | `24 hours` | Lord's Netherite Sword (Sharpness V, Fire Aspect II), Full Netherite Armor Set (Protection IV), 3× Enchanted Golden Apple, 2× Totem of Undying, Nether Star, `dying_realm:void_relic` ×2 |
 
-> 💡 **Иерархия рангов**: `LORD` наследует доступ ко всем наборам (`lord`, `premium`, `vip`, `start`); `PREMIUM` — к `premium`, `vip`, `start`; `VIP` — к `vip` и `start`.
+> 💡 **Rank Hierarchy**: `LORD` inherits access to all kits (`lord`, `premium`, `vip`, `start`); `PREMIUM` has access to `premium`, `vip`, `start`; `VIP` has access to `vip` and `start`.
 
 ---
 
-## 🎰 Кейсы и таблица дропа (`/cases`)
+## 🎰 Cases & Drop Tables (`/cases`)
 
-| Кейс (`ID`) | Иконка | Описание и пул наград (с весами вероятности) |
+| Case (`ID`) | Icon | Description & Reward Pool (with probability weights) |
 |:---|:---:|:---|
-| **Обычный кейс** (`common`) | `CHEST` | • Алмазы ×8 *(вес 30)*<br>• Изумруды ×16 *(вес 25)*<br>• Золотые яблоки ×6 *(вес 25)*<br>• Бутылочки опыта ×32 *(вес 20)*<br>• Незеритовый лом ×2 *(вес 10)*<br>• Кристалл душ `dying_realm:soul_crystal` ×3 *(вес 12)* |
-| **Мифический кейс** (`mythic`) | `ENDER_CHEST` | • Незеритовый слиток ×2 *(вес 22)*<br>• Тотем бессмертия *(вес 20)*<br>• Зачарованное золотое яблоко ×2 *(вес 15)*<br>• Незеритовый клинок Бездны (Острота V) *(вес 10)*<br>• Реликвия Бездны `dying_realm:void_relic` ×2 *(вес 12)*<br>• Привилегия **VIP** *(вес 4)* |
-| **Кейс Бездны** (`void`) | `CRYING_OBSIDIAN` | • Звезда Незера ×2 *(вес 18)*<br>• Зачарованное золотое яблоко ×5 *(вес 16)*<br>• Коса Жнеца Бездны (Острота VI, Добыча IV, Починка) *(вес 8)*<br>• Сердце Бездны `dying_realm:abyss_heart` *(вес 10)*<br>• Привилегия **PREMIUM** *(вес 4)*<br>• Привилегия **LORD** *(вес 2)* |
+| **Common Case** (`common`) | `CHEST` | • Diamonds ×8 *(weight 30)*<br>• Emeralds ×16 *(weight 25)*<br>• Golden Apples ×6 *(weight 25)*<br>• Bottles o' Enchanting ×32 *(weight 20)*<br>• Netherite Scrap ×2 *(weight 10)*<br>• Soul Crystal `dying_realm:soul_crystal` ×3 *(weight 12)* |
+| **Mythic Case** (`mythic`) | `ENDER_CHEST` | • Netherite Ingot ×2 *(weight 22)*<br>• Totem of Undying *(weight 20)*<br>• Enchanted Golden Apple ×2 *(weight 15)*<br>• Void Netherite Blade (Sharpness V) *(weight 10)*<br>• Void Relic `dying_realm:void_relic` ×2 *(weight 12)*<br>• **VIP** Rank *(weight 4)* |
+| **Void Case** (`void`) | `CRYING_OBSIDIAN` | • Nether Star ×2 *(weight 18)*<br>• Enchanted Golden Apple ×5 *(weight 16)*<br>• Void Reaper Scythe (Sharpness VI, Looting IV, Mending) *(weight 8)*<br>• Heart of the Abyss `dying_realm:abyss_heart` *(weight 10)*<br>• **PREMIUM** Rank *(weight 4)*<br>• **LORD** Rank *(weight 2)* |
 
 ---
 
-## ⌨️ Команды
+## ⌨️ Commands
 
-### Для игроков
-| Команда | Описание |
+### Player Commands
+| Command | Description |
 |---|---|
-| `/donate` | Открыть главное интерактивное меню сервера (профиль, привилегии, переход в киты и кейсы) |
-| `/kits` | Открыть графическое меню наборов с отображением статуса доступности и оставшегося времени кулдауна |
-| `/kit <start\|vip\|premium\|lord>` | Быстро получить набор в инвентарь без открытия GUI |
-| `/cases` | Открыть меню кейсов (показывает количество ключей каждого типа и запускает рулетку по клику) |
+| `/donate` | Open the main interactive server menu (profile, ranks, quick links to kits and cases) |
+| `/kits` | Open the graphical kits menu displaying availability status and remaining cooldown timers |
+| `/kit <start\|vip\|premium\|lord>` | Claim a kit directly into your inventory without opening the GUI |
+| `/cases` | Open the cases menu (displays key balances for each tier and starts the roulette on click) |
 
-### Для администраторов и RCON (уровень прав `2+`)
-| Команда | Описание |
+### Admin & RCON Commands (Permission Level `2+`)
+| Command | Description |
 |---|---|
-| `/donadmin setrank <player> <default\|vip\|premium\|lord>` | Установить донат-ранг игроку с сохранением в `rtcod_donate_players.json` |
-| `/donadmin givekey <player> <common\|mythic\|void> <amount>` | Выдать игроку указанное количество ключей от кейса |
-| `/donadmin resetcooldown <player>` | Мгновенно сбросить все кулдауны `/kit` для указанного игрока |
-| `/donadmin info <player>` | Посмотреть текущий ранг, баланс ключей и активные таймеры игрока |
+| `/donadmin setrank <player> <default\|vip\|premium\|lord>` | Assign a donate rank to a player and persist it in `rtcod_donate_players.json` |
+| `/donadmin givekey <player> <common\|mythic\|void> <amount>` | Grant the specified number of case keys to a player |
+| `/donadmin resetcooldown <player>` | Immediately reset all `/kit` cooldowns for the specified player |
+| `/donadmin info <player>` | Inspect a player's current rank, key balances, and active cooldown timers |
 
 ---
 
-## 🏗️ Архитектура проекта
+## 🏗️ Project Architecture
 
 ```
 RtCoD_Donate/
 ├── src/main/java/com/rtcod/donate/
-│   ├── RtCoDDonateMod.java       # Регистрация мода (IGNORESERVERONLY), команд и серверного тикера
-│   ├── DonateCommand.java        # Обработчики /donate, /kits, /kit, /cases, /donadmin
-│   ├── DonateGuiManager.java     # Генерация 9x6 витрин, перехват кликов и физика рулетки SpinSession
-│   ├── DonateData.java           # Реестр привилегий, китов, кейсов, весов лута и интеграции с Dying-Realm
-│   ├── LockedChestMenu.java      # Кастомный ChestMenu с полной блокировкой перемещения предметов
-│   └── PlayerDonateStore.java    # Потокобезопасное JSON-хранилище рангов, ключей и кулдаунов в world/
+│   ├── RtCoDDonateMod.java       # Mod entry point (IGNORESERVERONLY), command registration, and server ticker
+│   ├── DonateCommand.java        # Command handlers for /donate, /kits, /kit, /cases, /donadmin
+│   ├── DonateGuiManager.java     # 9x6 showcase builder, click interception, and SpinSession roulette physics
+│   ├── DonateData.java           # Rank registry, kits, cases, loot weights, and Dying-Realm item integration
+│   ├── LockedChestMenu.java      # Custom ChestMenu preventing any item extraction or slot manipulation
+│   └── PlayerDonateStore.java    # Thread-safe JSON store for ranks, keys, and cooldowns in world/
 └── build.gradle
 ```
 
 ---
 
-## 🚀 Установка и сборка
+## 🚀 Installation & Build
 
-1. Скачайте последний `rtcod_donate-1.0.0.jar` из раздела [**Releases**](https://github.com/Goblin-Inc/RtCoD_Donate/releases).
-2. Скопируйте `.jar` **только в папку `mods/` сервера** (установка на клиент не требуется).
-3. Все данные игроков автоматически сохраняются в `world/rtcod_donate_players.json`.
+1. Download the latest `rtcod_donate-1.0.0.jar` from [**Releases**](https://github.com/Goblin-Inc/RtCoD_Donate/releases).
+2. Place the `.jar` **into the server's `mods/` folder only** (client installation is not required).
+3. All player data is automatically persisted to `world/rtcod_donate_players.json`.
 
 ```bash
 git clone https://github.com/Goblin-Inc/RtCoD_Donate.git
@@ -109,14 +111,14 @@ cd RtCoD_Donate
 
 ## 📋 Changelog
 
-### `v1.0.0` — Релиз серверной системы доната и кейсов *(Текущая версия)*
-- **Добавлено**: Главное меню `/donate`, витрина `/kits` и рулетка `/cases` на базе защищённого `LockedChestMenu`.
-- **Добавлено**: Анимированная физика прокрутки кейсов `SpinSession` со звуковыми эффектами и защитой от потери выигрыша при закрытии окна.
-- **Добавлено**: Интеграция с предметами `Dying-Realm` через `ForgeRegistries.ITEMS` с автоматическим fallback.
-- **Добавлено**: Полный набор RCON-команд `/donadmin` для привязки к авто-донату.
+### `v1.0.0` — Server-Side Donate & Case Roulette Release *(Current)*
+- **Added**: `/donate` main menu, `/kits` showcase, and `/cases` roulette built on top of the tamper-proof `LockedChestMenu`.
+- **Added**: Animated `SpinSession` case-rolling physics with sound effects and anti-loss protection on window close.
+- **Added**: Dynamic integration with `Dying-Realm` items via `ForgeRegistries.ITEMS` with automatic vanilla fallback.
+- **Added**: Complete RCON `/donadmin` command suite for automated webstore integration.
 
 ---
 
 <div align="center">
-Разработано специально для сервера <b>RtCoD</b> • Автор: <a href="https://github.com/Goblin-Inc">@Goblin-Inc</a>
+Designed for the <b>RtCoD</b> server • Author: <a href="https://github.com/Goblin-Inc">@Goblin-Inc</a> • <a href="README_Ru.md">Русская версия</a>
 </div>
